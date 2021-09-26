@@ -20,7 +20,7 @@ export default async function GetPokemonsData() {
     `;
 
     const variables = {
-        allPokemonLimit: 10,
+        allPokemonLimit: null,
     }
 
     return await request(endpoint, query, variables);

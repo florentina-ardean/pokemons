@@ -27,21 +27,32 @@ class Pokemon extends React.Component {
 class Board extends React.Component {
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       data: []
     }
   }
   componentDidMount() {
-    GetPokemonsData().then(res => this.setState({ data: res.allPokemon }));
+    GetPokemonsData().then(result => this.setState({ data: result.allPokemon }));
   }
 
   getPokemonListComponent(pokemons) {
     let pokemonsComponentList = []
     pokemons.forEach(pokemon => {
-      pokemonsComponentList.push(<Pokemon pokemon={pokemon} />);
+      pokemonsComponentList.push(<Pokemon pokemon={pokemon} key={pokemon.id}/>);
     });
 
     return pokemonsComponentList;
+  }
+
+  handleChange(event) {
+    console.log(event);
+    const searchText = event.target.value;
+
+  GetPokemonsData().then(result => result.allPokemon
+    .filter(pokemon => pokemon.name.includes(searchText)))
+    .then(filtered => this.setState({ data: filtered }) );
+  
   }
 
   render() {
@@ -49,6 +60,7 @@ class Board extends React.Component {
       <div>
         <div className="header">
           <div><h1>Pokedex</h1></div>
+          <div><input className= "name" type="text"  onChange={this.handleChange}/></div>
         </div>
         <div className="container">{this.getPokemonListComponent(this.state.data)}</div>
         <div className="footer">by Flo</div>

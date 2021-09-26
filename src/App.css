@@ -23,10 +23,11 @@
 
 .name {
     padding: 5px;
-    /* margin: 2px; */
+    margin: 5px;
 }
 .type {
     background-color: rgba(174, 228, 171, 0.947);
     padding: 5px;
     margin: 2px;
 }
+
