@@ -1,4 +1,4 @@
-import { GraphQLClient, gql } from "graphql-request";
+import { request, gql } from "graphql-request";
 
 export default async function GetPokemonsData() {
 
@@ -23,9 +23,6 @@ export default async function GetPokemonsData() {
         allPokemonLimit: 10,
     }
 
-    const client = new GraphQLClient(endpoint);
-    const data = await client.request(query, variables);
-    console.log(data);
-    // return data;
+    return await request(endpoint, query, variables);
 }
 
