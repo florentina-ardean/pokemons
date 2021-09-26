@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+// import GetPokemonsData from './Data';
 
 
 class Pokemon extends React.Component {
@@ -11,13 +12,18 @@ class Pokemon extends React.Component {
 }
 
 class Board extends React.Component {
+  // constructor(props) {
+  //   super(props);
+
+  //   let pokemonsList = GetPokemonsData();
+  //   console.log(pokemonsList);
+  // }
+
   render() {
     let pokemons = [];
 
-    for(let i= 0; i < this.props.size; i++) {
-      pokemons.push(<Pokemon 
-                        value={i}
-                        />) ;
+    for (let i = 0; i < this.props.size; i++) {
+      pokemons.push(<Pokemon value={i}/>);
     }
 
     return (
@@ -28,7 +34,7 @@ class Board extends React.Component {
 
 function App() {
   return (
-    <Board size = "10"/>
+    <Board size="10" />
   );
 }
 
