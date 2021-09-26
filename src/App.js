@@ -2,28 +2,44 @@ import React from 'react';
 import './App.css';
 import GetPokemonsData from './Data.js'
 
+class PokemonTypes extends React.Component {
+  render() {
+    let typesComponents = [];
+    this.props.types.forEach(type => {
+      typesComponents.push(<span className="type">{type.name}</span>);
+    });
+    return typesComponents
+  }
+}
 
 class Pokemon extends React.Component {
-  
   render() {
-    let element = this.props.element;
+    let pokemon = this.props.pokemon;
 
-    let typesComponents = [];
-    element.types.forEach(type => {
-      typesComponents.push(<span className= "type">{type.name}</span>);
-    });
-    
     return (
-    <div className="item">
-      <div><img src={element.sprites.front_default}  alt={element.name}></img></div>
-      <div className = "name">{element.id} {element.name}</div>
-      <div>{typesComponents}</div>
-    </div>);
+      <div className="item">
+        <div><img src={pokemon.sprites.front_default} alt={pokemon.name}></img></div>
+        <div className="name">{pokemon.id} {pokemon.name}</div>
+        <div><PokemonTypes types={pokemon.types}/></div>
+      </div>);
+  }
+}
+
+class PokemonList extends React.Component {
+  render() {
+    let pokemons = this.props.data;
+    let pokemonsComponentList = []
+
+    pokemons.forEach(pokemon => {
+      pokemonsComponentList.push(<Pokemon pokemon={pokemon} />);
+    });
+
+    return pokemonsComponentList;
   }
 }
 
 class Board extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       data: []
@@ -33,18 +49,12 @@ class Board extends React.Component {
     GetPokemonsData().then(res => this.setState({ data: res.allPokemon }));
   }
   render() {
-    let pokemonsData = this.state.data;
-    let pokemonsComponentList = []
-
-    pokemonsData.forEach(element => {
-      pokemonsComponentList.push(<Pokemon element={element} key={element.id}/>);
-    });
-
     return (
-    <div>
-        <div className="header"><h1>Pokedex</h1></div>
-        
-        <div className="container">{pokemonsComponentList}</div>
+      <div>
+        <div className="header">
+          <div><h1>Pokedex</h1></div>
+        </div>
+        <div className="container"><PokemonList data={this.state.data} /></div>
         <div className="footer">by Flo</div>
       </div>
     )
@@ -53,7 +63,7 @@ class Board extends React.Component {
 
 function App() {
   return (
-    <Board/>
+    <Board />
   );
 }
 
