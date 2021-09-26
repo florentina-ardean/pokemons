@@ -4,11 +4,21 @@ import GetPokemonsData from './Data.js'
 
 
 class Pokemon extends React.Component {
+  
   render() {
     let element = this.props.element;
-    return (<li>{element.id} {element.name} {JSON.stringify(element.types)}
-    <img src={element.sprites.front_default}  alt={element.name}></img>
-    </li>);
+
+    let typesComponents = [];
+    element.types.forEach(type => {
+      typesComponents.push(<span className= "type">{type.name}</span>);
+    });
+    
+    return (
+    <div className="item">
+      <div><img src={element.sprites.front_default}  alt={element.name}></img></div>
+      <div className = "name">{element.id} {element.name}</div>
+      <div>{typesComponents}</div>
+    </div>);
   }
 }
 
@@ -23,8 +33,6 @@ class Board extends React.Component {
     GetPokemonsData().then(res => this.setState({ data: res.allPokemon }));
   }
   render() {
-    // console.log("client state: " + JSON.stringify(this.state.data));
-
     let pokemonsData = this.state.data;
     let pokemonsComponentList = []
 
@@ -33,7 +41,12 @@ class Board extends React.Component {
     });
 
     return (
-      <div><ul>{pokemonsComponentList}</ul></div>
+    <div>
+        <div className="header"><h1>Pokedex</h1></div>
+        
+        <div className="container">{pokemonsComponentList}</div>
+        <div className="footer">by Flo</div>
+      </div>
     )
   }
 }

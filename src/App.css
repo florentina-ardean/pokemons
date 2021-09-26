@@ -1,0 +1,32 @@
+.header {
+    grid-area: header;
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    align-content: center;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.item {
+    background-color: rgba(240, 236, 236, 0.947);
+    padding: 20px;
+    text-align: center;
+}
+
+.footer {
+    text-align: right;
+}
+
+.name {
+    padding: 5px;
+    /* margin: 2px; */
+}
+.type {
+    background-color: rgba(174, 228, 171, 0.947);
+    padding: 5px;
+    margin: 2px;
+}
